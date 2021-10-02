@@ -19,7 +19,7 @@ const Form = ({ currentId, setCurrentId }) => {
   );
 
   const dispatch = useDispatch();
-  const user = JSON.parse(localStorage.getItem('profile'))
+  const user = JSON.parse(localStorage.getItem("profile"));
 
   useEffect(() => {
     if (post) setPostData(post);
@@ -31,34 +31,36 @@ const Form = ({ currentId, setCurrentId }) => {
     setPostData({ title: "", message: "", tags: "", selectedFile: "" });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
     if (currentId === 0) {
-      dispatch(createPost({ ...postData, name: user?.result?.name}));
+      dispatch(createPost({ ...postData, name: user?.result?.name }));
+      clear();
     } else {
-      
-      dispatch(updatePost(currentId, { ...postData, name: user?.result?.name }));
+      dispatch(
+        updatePost(currentId, { ...postData, name: user?.result?.name })
+      );
     }
     clear();
   };
 
-  if(!user?.result?.name){
+  if (!user?.result?.name) {
     return (
-    <Paper className={classes.paper}>
-      <Typography variant="h6" align="center" >
-       Please Sign In to create your own memories and like other's memories
-      </Typography>
-    </Paper>
-    )
+      <Paper className={classes.paper}>
+        <Typography variant="h6" align="center">
+          Please Sign In to create your own memories and like other's memories
+        </Typography>
+      </Paper>
+    );
   }
 
   return (
     <Paper className={classes.paper}>
       <form
         autoComplete="off"
-        noValidete
-        classNmae={`${classes.root} ${classes.form}`}
+        noValidate
+        className={`${classes.root} ${classes.form}`}
         onSubmit={handleSubmit}
       >
         <Typography variant="h6">
@@ -105,7 +107,7 @@ const Form = ({ currentId, setCurrentId }) => {
             multiple={false}
             onDone={({ base64 }) =>
               setPostData({ ...postData, selectedFile: base64 })
-            }
+            } //minuto 1:06:25 para ver como poner el campo de las fotos con base64
           />
         </div>
         <Button

@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Link, useHistory, useLocation } from "react-router-dom";
 import { AppBar, Typography, Button, Toolbar, Avatar } from "@material-ui/core";
 import { useDispatch } from "react-redux";
-
+import decode from "jwt-decode";
 import memories from "../../images/memories.png";
 import useStyles from "./styles";
 
@@ -11,18 +11,24 @@ const Navbar = () => {
   const [user, setUser] = useState(JSON.parse(localStorage.getItem("profile")));
   const dispatch = useDispatch();
   const history = useHistory();
-  const location = useLocation()
+  const location = useLocation();
 
   const logout = () => {
     dispatch({ type: "LOGOUT" });
 
-    history.push('/');
+    history.push("/");
 
     setUser(null);
   };
 
   useEffect(() => {
     const token = user?.token;
+
+    if (token) {
+      const decodedToken = decode(token);
+
+      if (decodedToken.exp * 1000 < new Date().getTime()) logout();
+    }
 
     setUser(JSON.parse(localStorage.getItem("profile")));
   }, [location]);
@@ -44,11 +50,11 @@ const Navbar = () => {
             className={classes.image}
             src={memories}
             alt="memories"
-            height="100"
+            height="80"
           />
         </div>
         <Toolbar className={classes.toolbar}>
-          {user ? (
+          {user ? (//si el usuario existe mmostramos la foto y el nombre del usuario
             <div className={classes.profile}>
               <Avatar
                 className={classes.purple}
@@ -69,7 +75,7 @@ const Navbar = () => {
                 Logout
               </Button>
             </div>
-          ) : (
+          ) : (// pero si else el usario no existe mostramos el boton para registrarse
             <Button
               component={Link}
               to="/auth"

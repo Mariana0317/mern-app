@@ -53,7 +53,7 @@ const Auth = () => {
 
   const switchMode = () => {
     setIsSignup((prevIsSignup) => !prevIsSignup);
-    handleShowPassword(false);
+    setShowPassword(false);
   };
 
   const googleSuccess = async (res) => {
@@ -124,7 +124,7 @@ const Auth = () => {
           <Button
             variant="contained"
             color="primary"
-            className={classes.button}
+            className={classes.submit}
             type="submit"
             fullWidth
           >
@@ -134,7 +134,7 @@ const Auth = () => {
             clientId="411843314574-bbd8k2erqelh614al7i8k14k3fa9pcie.apps.googleusercontent.com"
             render={(renderProps) => (
               <Button
-                className={classes.googleButton}
+                className={classes.submit}
                 color="primary"
                 fullWidth
                 onClick={renderProps.onClick}

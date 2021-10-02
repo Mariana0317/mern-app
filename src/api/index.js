@@ -3,12 +3,14 @@ import axios from "axios";
 const API = axios.create({ baseURL: "http://localhost:5000" });
 
 API.interceptors.request.use((req) => {
-if(localStorage.getItem('profile')){
-  req.headers.Authorization = `Bearer ${JSON.parse(localStorage.getItem('profile')).token}`
-}
+  if (localStorage.getItem("profile")) {
+    req.headers.Authorization = `Bearer ${
+      JSON.parse(localStorage.getItem("profile")).token
+    }`;
+  }
 
-return req;
-});//esto va a pasar antes de la solicitudes de abajo
+  return req;
+}); //esto va a pasar antes de la solicitudes de abajo
 
 export const fetchPosts = () => API.get("/posts");
 export const createPost = (newPost) => API.post("/posts", newPost);

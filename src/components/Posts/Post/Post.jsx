@@ -23,7 +23,8 @@ const Post = ({ post, setCurrentId }) => {
   const user = JSON.parse(localStorage.getItem("profile"));
 
   const Likes = () => {
-    if (post.likes.length > 0) {
+    if (post?.likes?.length > 0) {
+      
       return post.likes.find(
         (like) => like === (user?.result?.googleId || user?.result?._id)
       ) ? (
@@ -67,20 +68,20 @@ const Post = ({ post, setCurrentId }) => {
         user?.result?._id === post?.creator) && (
         <div className={classes.overlay2}>
           <Button
-            style={{ color: "white" }}
-            size="small"
             onClick={() => setCurrentId(post._id)}
+            style={{ color: "secondary" }}
+            size="small"
           >
-            <MoreHorizIcon fontSize="default" color="secondary" />
+            <MoreHorizIcon fontSize="default" />
           </Button>
         </div>
       )}
       <div className={classes.details}>
-        <Typography variant="body2" color="textSecondary">
+        <Typography variant="body2" color="textSecondary" component="h2">
           {post.tags.map((tag) => `#${tag}`)}
         </Typography>
       </div>
-      <Typography variant="h5" className={classes.title} gutterBottom>
+      <Typography variant="h5" className={classes.title} gutterBottom component="h2">
         {post.title}
       </Typography>
       <CardContent>
@@ -90,7 +91,7 @@ const Post = ({ post, setCurrentId }) => {
       </CardContent>
       <CardActions className={classes.cardActions}>
         <Button
-          size="large"
+          size="small"
           color="primary"
           disabled={!user?.result}
           onClick={() => dispatch(likePost(post._id))}
@@ -100,11 +101,11 @@ const Post = ({ post, setCurrentId }) => {
         {(user?.result?.googleId === post?.creator ||
           user?.result?._id === post?.creator) && (
           <Button
-            size="large"
-            color="primary"
+            size="small"
+            color="secondary"
             onClick={() => dispatch(deletePost(post._id))}
           >
-            <DeleteIcon fontSize="large" />
+            <DeleteIcon fontSize="small" /> Delete
           </Button>
         )}
       </CardActions>

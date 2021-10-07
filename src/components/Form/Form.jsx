@@ -15,8 +15,8 @@ const Form = ({ currentId, setCurrentId }) => {
     selectedFile: "",
   });
   const post = useSelector((state) =>
-    currentId ? state.posts.find((p) => p._id === currentId) : null
-  );
+    (currentId ? state.posts.find((message) => message._id === currentId) : null
+  ));
 
   const dispatch = useDispatch();
   const user = JSON.parse(localStorage.getItem("profile"));
@@ -26,7 +26,7 @@ const Form = ({ currentId, setCurrentId }) => {
   }, [post]);
 
   const clear = () => {
-    setCurrentId(null);
+    setCurrentId(0);
 
     setPostData({ title: "", message: "", tags: "", selectedFile: "" });
   };
@@ -64,13 +64,8 @@ const Form = ({ currentId, setCurrentId }) => {
         onSubmit={handleSubmit}
       >
         <Typography variant="h6">
-          {currentId ? "Editing" : "Creating"} a Memory
-          <img
-            className={classes.image}
-            src={logo}
-            alt="memories"
-            height="150"
-          />
+          {currentId ? `Editing "${post.title}"` : "Creating a Memorie"} 
+          
         </Typography>
 
         <TextField
@@ -86,6 +81,8 @@ const Form = ({ currentId, setCurrentId }) => {
           varinat="outline"
           label="Message"
           fullWidth
+          multiline 
+          rows={4}
           value={postData.message}
           onChange={(e) =>
             setPostData({ ...postData, message: e.target.value })
@@ -94,7 +91,7 @@ const Form = ({ currentId, setCurrentId }) => {
         <TextField
           name="tags"
           varinat="outline"
-          label="Tags"
+          label="Tags (coma separated)"
           fullWidth
           value={postData.tags}
           onChange={(e) =>

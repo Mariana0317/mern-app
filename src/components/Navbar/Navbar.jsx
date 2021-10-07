@@ -5,6 +5,7 @@ import { useDispatch } from "react-redux";
 import decode from "jwt-decode";
 import memories from "../../images/memories.png";
 import useStyles from "./styles";
+import * as actionType from '../../constants/actionsTypes';
 
 const Navbar = () => {
   const classes = useStyles();
@@ -14,7 +15,7 @@ const Navbar = () => {
   const location = useLocation();
 
   const logout = () => {
-    dispatch({ type: "LOGOUT" });
+    dispatch({ type: actionType.LOGOUT });
 
     history.push("/");
 
@@ -54,17 +55,17 @@ const Navbar = () => {
           />
         </div>
         <Toolbar className={classes.toolbar}>
-          {user ? (//si el usuario existe mmostramos la foto y el nombre del usuario
+          {user?.result ? (      
             <div className={classes.profile}>
               <Avatar
                 className={classes.purple}
-                alt={user.result.name}
-                src={user.result.imageUrl}
+                alt={user?.result.name}
+                src={user?.result.imageUrl}
               >
-                {user.result.name.charAt(0)}
+                {user?.result.name.charAt(0)}
               </Avatar>
               <Typography className={classes.userName} variant="6">
-                {user.result.name}
+                {user?.result.name}
               </Typography>
               <Button
                 variant="contained"

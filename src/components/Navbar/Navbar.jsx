@@ -44,6 +44,7 @@ const Navbar = () => {
             className={classes.heading}
             variant="h2"
             align="center"
+            color="primary"
           >
             Memories
           </Typography>

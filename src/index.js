@@ -15,27 +15,23 @@ const store = createStore(reducers, compose(applyMiddleware(thunk)));
 
 const theme = createTheme({
   typography: {
-    fontFamily:[ 
-      'Satisfy',
-       'cursive'
-  ].join(','),
+    fontFamily: ["Satisfy", "cursive"].join(","),
   },
   palette: {
     primary: {
-      main: '#18ffff'
+      main: "#18ffff",
     },
     secondary: {
-      main: '#ff80ab'
-    }
-  }
+      main: "#ff80ab",
+    },
+  },
 });
 
 ReactDOM.render(
-  <ThemeProvider theme={theme}>
-    <Provider store={store}>
+  <Provider store={store}>
+    <ThemeProvider theme={theme}>
       <App />
-    </Provider>
-  </ThemeProvider>,
-
+    </ThemeProvider>
+  </Provider>,
   document.getElementById("root")
 );

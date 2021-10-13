@@ -79,7 +79,9 @@ const Auth = () => {
         <Avatar className={classes.avatar}>
           <LockOutLinedIcon />
         </Avatar>
-        <Typography component="h1" variant="h5">{isSignup ? "Sign Up" : "Sign In"}</Typography>
+        <Typography component="h1" variant="h5">
+          {isSignup ? "Sign Up" : "Sign In"}
+        </Typography>
         <form className={classes.form} onSubmit={handleSubmit}>
           <Grid container spacing={2}>
             {isSignup && (
@@ -112,14 +114,14 @@ const Auth = () => {
               type={showPassword ? "text" : "password"}
               handleShowPassword={handleShowPassword}
             />
-            {isSignup && 
+            {isSignup && (
               <Input
                 name="confirmPassword"
                 label="Repeat Password"
                 handleChange={handleChange}
                 type="password"
               />
-            }
+            )}
           </Grid>
           <Button
             variant="contained"

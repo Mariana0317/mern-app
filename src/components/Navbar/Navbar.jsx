@@ -5,7 +5,7 @@ import { useDispatch } from "react-redux";
 import decode from "jwt-decode";
 import memories from "../../images/memories.png";
 import useStyles from "./styles";
-import * as actionType from '../../constants/actionsTypes';
+import * as actionType from "../../constants/actionsTypes";
 
 const Navbar = () => {
   const classes = useStyles();
@@ -23,6 +23,7 @@ const Navbar = () => {
   };
 
   useEffect(() => {
+    
     const token = user?.token;
 
     if (token) {
@@ -32,6 +33,7 @@ const Navbar = () => {
     }
 
     setUser(JSON.parse(localStorage.getItem("profile")));
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [location]);
 
   return (
@@ -56,7 +58,7 @@ const Navbar = () => {
           />
         </div>
         <Toolbar className={classes.toolbar}>
-          {user?.result ? (      
+          {user?.result ? (
             <div className={classes.profile}>
               <Avatar
                 className={classes.purple}
@@ -77,7 +79,8 @@ const Navbar = () => {
                 Logout
               </Button>
             </div>
-          ) : (// pero si else el usario no existe mostramos el boton para registrarse
+          ) : (
+            // pero si else el usario no existe mostramos el boton para registrarse
             <Button
               component={Link}
               to="/auth"

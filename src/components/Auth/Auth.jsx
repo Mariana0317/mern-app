@@ -69,9 +69,8 @@ const Auth = () => {
     }
   };
 
-  const googleFailure = () => {
-    alert("Google Sign In was unsuccessful. Try Again Later");
-  };
+  const googleFailure = () =>
+    console.log("Google Sign In was unsuccessful. Try Again Later");
 
   return (
     <Container component="main" maxWidth="xs">

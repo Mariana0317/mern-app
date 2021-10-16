@@ -10,26 +10,28 @@ import * as api from "../api";
 
 //action creatores son funciones que devulven acciones
 
-export const getPosts = () => async (dispatch) => {
+export const getPosts = (page) => async (dispatch) => {
   try {
-    const { data } = await api.fetchPosts();
-
+    const { data } = await api.fetchPosts(page);
+    console.log(data);
     dispatch({ type: FETCH_ALL, payload: data });
   } catch (error) {
     console.log(error.message);
   }
 };
 
-//es para obtener publicacion por busqueda 
+//es para obtener publicacion por busqueda
 export const getPostsBySearch = (searchQuery) => async (dispatch) => {
   try {
-    const { data: { data } } = await api.fetchPostsBySearch(searchQuery);//aqui nos comunicacmos con el backend
+    const {
+      data: { data },
+    } = await api.fetchPostsBySearch(searchQuery); //aqui nos comunicacmos con el backend
 
     dispatch({ type: FETCH_BY_SEARCH, payload: data });
   } catch (error) {
     console.log(error);
   }
-}
+};
 
 export const createPost = (post) => async (dispatch) => {
   try {

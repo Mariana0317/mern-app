@@ -5,12 +5,14 @@ import useStyles from "./styles";
 import { useSelector } from "react-redux";
 
 const Posts = ({ setCurrentId }) => {
-  const { posts } = useSelector((state) => state.posts);
+  const { posts, isLoading } = useSelector((state) => state.posts);//antes era un array de posts ahora es un objeto donde tenemmos una popiedad post, por lo que debemos destructurar las publicaciones. se cambia a un objeto proqe vamos a tenre musltiples propiedades aqui
   const classes = useStyles();
 
-  return !posts?.length ? (
-    <CircularProgress />
-  ) : (
+if(!posts.length && !isLoading) return 'No posts';
+
+  return  (
+    isLoading ? <CircularProgress />
+   : (
     <Grid
       className={classes.container}
       container
@@ -23,6 +25,7 @@ const Posts = ({ setCurrentId }) => {
         </Grid>
       ))}
     </Grid>
+   )
   );
 };
 

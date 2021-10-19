@@ -1,6 +1,7 @@
 import {
   FETCH_ALL,
   FETCH_BY_SEARCH,
+  FETCH_POST,
   START_LOADING,
   END_LOADING,
   CREATE,
@@ -11,6 +12,19 @@ import {
 import * as api from "../api";
 
 //action creatores son funciones que devulven acciones
+export const getPost = (id) => async (dispatch) => {//esta accion recupera todas las publicaciones
+  try {
+    dispatch({ type: START_LOADING});
+    const { data } = await api.fetchPost(id);
+    
+    console.log(data);
+    dispatch({ type: FETCH_POST, payload: data });//payload es un objeto que contiene tres cosas contiene los datos de las publicaciones, contiene la pagina actual, y tamien el numero de paginas 
+    dispatch({ type: END_LOADING });
+  } catch (error) {
+    console.log(error.message);
+  }
+};
+
 
 export const getPosts = (page) => async (dispatch) => {//esta accion recupera todas las publicaciones
   try {
